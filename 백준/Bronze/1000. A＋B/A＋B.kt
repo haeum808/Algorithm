@@ -1,4 +1,9 @@
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.util.StringTokenizer
+
 fun main() {
-    val (a, b) = readln().split(" ").map { it.toInt() }
-    println(a + b)
+    val br = BufferedReader(InputStreamReader(System.`in`))
+    val st = StringTokenizer(br.readLine())
+    println(st.nextToken().toInt() + st.nextToken().toInt())
 }
