@@ -13,10 +13,12 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val mul = a * b * c
 
     mul.toString().forEach {
-        result[it.digitToInt()]++
+        result[it - '0']++
     }
 
-    bw.write(result.joinToString("\n"))
+    result.forEach {
+        bw.write("$it\n")
+    }
 
     bw.flush()
     bw.close()
