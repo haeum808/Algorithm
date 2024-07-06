@@ -5,10 +5,17 @@ import java.io.OutputStreamWriter
 
 fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val bw = BufferedWriter(OutputStreamWriter(System.out))
-    val numbers = List(9) { readLine().toInt() }
+    var maxNumber = 0
+    var maxNumberPosition = 0
 
-    val maxNumber = numbers.max()
-    val maxNumberPosition = numbers.indexOf(maxNumber) + 1
+    (1..9).forEach {
+        val number = readLine().toInt()
+
+        if (maxNumber < number) {
+            maxNumber = number
+            maxNumberPosition = it
+        }
+    }
 
     bw.write("$maxNumber\n$maxNumberPosition")
     bw.flush()
