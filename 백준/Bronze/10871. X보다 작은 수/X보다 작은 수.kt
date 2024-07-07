@@ -10,7 +10,7 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val n = st.nextToken()
     val x = st.nextToken().toInt()
 
-    val numbers = readLine().split(" ").map { it.toInt() }.filter { it < x }
+    val numbers = readLine().split(" ").filter { it.toInt() < x }
 
     numbers.forEach {
         bw.write("$it ")
