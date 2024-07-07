@@ -5,8 +5,8 @@ import java.io.OutputStreamWriter
 
 fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val bw = BufferedWriter(OutputStreamWriter(System.out))
-
-    bw.write("${readLine()[0].code}\n")
+    
+    bw.write("${read()}")
     bw.flush()
     bw.close()
 }
