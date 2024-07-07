@@ -10,13 +10,16 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
 
     for(i in s.indices) {
         val targetIndex = s[i] - 'a'
-        
+
         if (alphabet[targetIndex] == -1) {
             alphabet[targetIndex] = i
         }
     }
 
-    bw.write(alphabet.joinToString(" "))
+    alphabet.forEach {
+        bw.write("$it ")
+    }
+
     bw.flush()
     bw.close()
 }
