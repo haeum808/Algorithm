@@ -14,11 +14,7 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     }
 
     numbers.forEachIndexed { index, i ->
-        if (i > 0) {
-            repeat(i) {
-                bw.write("$index\n")
-            }
-        }
+        bw.write("$index\n".repeat(i))
     }
 
     bw.flush()
