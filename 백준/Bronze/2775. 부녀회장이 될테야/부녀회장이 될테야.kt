@@ -10,9 +10,7 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
 
     for (i in 1..14) {
         apart[0][i] = i
-    }
-    for (i in 1..14) {
-        apart[i][0] = 1
+        apart[i][1] = 1
     }
 
     for (i in 1..14) {
