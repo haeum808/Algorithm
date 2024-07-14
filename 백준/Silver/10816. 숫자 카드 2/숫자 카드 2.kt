@@ -6,21 +6,19 @@ import java.util.StringTokenizer
 
 fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val bw = BufferedWriter(OutputStreamWriter(System.out))
-    val map = mutableMapOf<Int, Int>()
+    val numbers = IntArray(20_000_001)
     val n = readLine()
     var st = StringTokenizer(readLine())
 
     while (st.hasMoreTokens()) {
-        val number = st.nextToken().toInt()
-
-        map[number] = map.getOrDefault(number, 0) + 1
+        numbers[st.nextToken().toInt() + 10_000_000] += 1
     }
 
     val m = readLine()
     st = StringTokenizer(readLine())
 
     while (st.hasMoreTokens()) {
-        bw.write("${map[st.nextToken().toInt()] ?: 0} ")
+        bw.write("${numbers[st.nextToken().toInt() + 10_000_000]} ")
     }
 
     bw.flush()
