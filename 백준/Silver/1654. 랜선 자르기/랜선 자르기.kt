@@ -8,21 +8,21 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
 
     val (k, n) = readLine().split(" ").map { it.toInt() }
     val lines = LongArray(k) { readLine().toLong() }
-    var start = 0L
-    var end = lines.max() + 1
+    var start = 1L
+    var end = lines[0] + 1
 
-    while (start + 1 < end) {
+    while (start < end) {
         val mid = (start + end) / 2
         val temp = lines.sumOf { it / (mid) }
 
-        if (temp >= n) {
-            start = mid
-        } else {
+        if (temp < n) {
             end = mid
+        } else {
+            start = mid + 1
         }
     }
 
-    bw.write("$start")
+    bw.write("${start - 1}")
     bw.flush()
     bw.close()
 }
