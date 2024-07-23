@@ -8,10 +8,10 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val bw = BufferedWriter(OutputStreamWriter(System.out))
     val n = readLine()
     var st = StringTokenizer(readLine())
-    val map = mutableMapOf<Int, Boolean>()
+    val set = HashSet<Int>()
 
     while (st.hasMoreTokens()) {
-        map[st.nextToken().toInt()] = true
+        set.add(st.nextToken().toInt())
     }
 
     val m = readLine()
@@ -20,7 +20,7 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     while (st.hasMoreTokens()) {
         val next = st.nextToken().toInt()
 
-        if (map.containsKey(next)) {
+        if (set.contains(next)) {
             bw.write("1 ")
         } else {
             bw.write("0 ")
