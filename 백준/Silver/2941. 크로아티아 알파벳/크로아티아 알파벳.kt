@@ -6,16 +6,8 @@ import java.io.OutputStreamWriter
 fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val bw = BufferedWriter(OutputStreamWriter(System.out))
 
-    bw.write("${readLine()
-        .replace("c=", "?")
-        .replace("c-", "?")
-        .replace("dz=", "?")
-        .replace("d-", "?")
-        .replace("lj", "?")
-        .replace("nj", "?")
-        .replace("s=", "?")
-        .replace("z=", "?")
-        .length}")
+    bw.write("${readLine().replace("c=|c-|dz=|d-|lj|nj|s=|z=".toRegex(), "*").length}")
+
     bw.flush()
     bw.close()
     close()
