@@ -6,29 +6,24 @@ import java.io.OutputStreamWriter
 fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val bw = BufferedWriter(OutputStreamWriter(System.out))
     val t = readLine().toInt()
-    var count = 0
+    var count = t
 
     repeat(t) {
-        val alphabet = IntArray(26)
-        val input = readLine()
+        val string = readLine()
+        var lastChar = '?'
+        val alphabet = BooleanArray(26)
 
-        var i = 0
-        while (i < input.length) {
-            var j = i + 1
+        for (char in string) {
+            val index = char - 'a'
 
-            alphabet[input[i] - 'a'] += 1
+            if (alphabet[index].not()) {
+                alphabet[index] = true
+            } else if (lastChar != char) {
+                count--
+                break
+            }
 
-                while (j < input.length) {
-                    if (input[i] - 'a' != input[j] - 'a') {
-                        break
-                    }
-                    j++
-                }
-            i = j
-        }
-
-        if (!alphabet.any { it > 1 }) {
-            count++
+            lastChar = char
         }
     }
 
