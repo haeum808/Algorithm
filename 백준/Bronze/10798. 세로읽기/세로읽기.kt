@@ -6,7 +6,7 @@ import java.util.Stack
 
 fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val bw = BufferedWriter(OutputStreamWriter(System.out))
-    val board = Array(5) { CharArray(15) }
+    val board = Array(5) { CharArray(15) { ' ' } }
 
     repeat(5) {
         val input = readLine()
@@ -18,7 +18,7 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
 
     for (i in 0..<15) {
         for (j in 0..<5) {
-            if (board[j][i].isDigit() || board[j][i].isLetter()) {
+            if (board[j][i] != ' ') {
                 bw.write("${board[j][i]}")
             }
         }
