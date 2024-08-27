@@ -6,31 +6,24 @@ import java.io.OutputStreamWriter
 fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val bw = BufferedWriter(OutputStreamWriter(System.out))
     val (n, m) = readLine().split(" ").map { it.toInt() }
-    val numbers = ArrayList<Int>(n)
-    val visited = BooleanArray(n + 1)
+    val isVisited = BooleanArray(n + 1)
 
-    fun choose(curNum: Int) {
-        if (numbers.size >= 2 && numbers[numbers.size - 1] < numbers[numbers.size - 2]) {
+    fun backtracking(depth: Int, answer: String, start: Int) {
+        if (depth == m) {
+            println(answer)
             return
         }
 
-        if (curNum == m) {
-            bw.write("${numbers.joinToString(" ")}\n")
-            return
-        }
-
-        for (i in 1..n) {
-            if (!visited[i]) {
-                visited[i] = true
-                numbers.add(i)
-                choose(curNum + 1)
-                numbers.removeLast()
-                visited[i] = false
+        for (number in start..n) {
+            if (!isVisited[number]) {
+                isVisited[number] = true
+                backtracking(depth + 1, "$answer$number ", number)
+                isVisited[number] = false
             }
         }
     }
 
-    choose(0)
+    backtracking(0, "", 1)
 
     bw.flush()
     bw.close()
