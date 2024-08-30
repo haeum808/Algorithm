@@ -10,6 +10,7 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val numberOfEdges = readLine().toInt()
     val graph = Array(numberOfComputers + 1) { LinkedList<Int>() }
     val isVisited = BooleanArray(numberOfComputers + 1)
+    var count = 0
 
     repeat(numberOfEdges) {
         val (vertex1, vertex2) = readLine().split(" ").map { it.toInt() }
@@ -22,14 +23,15 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
 
         for (edge in graph[r]) {
             if (!isVisited[edge]) {
+                count++
                 dfs(edge)
             }
         }
     }
 
     dfs(1)
-    
-    bw.write("${isVisited.count { it } - 1}")
+
+    bw.write("$count")
     bw.flush()
     bw.close()
     close()
