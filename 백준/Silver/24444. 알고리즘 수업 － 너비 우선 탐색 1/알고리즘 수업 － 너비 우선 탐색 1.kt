@@ -2,16 +2,12 @@ import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
-import java.util.Collections
-import java.util.LinkedList
-import java.util.PriorityQueue
-import java.util.Queue
-import java.util.TreeSet
+import java.util.*
 
 fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val bw = BufferedWriter(OutputStreamWriter(System.out))
     val (n, m, r) = readLine().split(" ").map { it.toInt() }
-    val graph = Array(n + 1) { LinkedList<Int>() }
+    val graph = Array(n + 1) { PriorityQueue<Int>() }
     val isVisited = BooleanArray(n + 1)
     val result = IntArray(n + 1)
     var count = 1
@@ -31,9 +27,10 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
 
         while (queue.isNotEmpty()) {
             val next = queue.poll()
-            graph[next].sort()
 
-            for (children in graph[next]) {
+            while (graph[next].isNotEmpty()) {
+                val children = graph[next].poll()
+
                 if (!isVisited[children]) {
                     result[children] = count++
                     isVisited[children] = true
