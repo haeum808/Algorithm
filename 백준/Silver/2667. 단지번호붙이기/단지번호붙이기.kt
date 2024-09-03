@@ -10,7 +10,7 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val n = readLine().toInt()
     val graph = Array(n) { IntArray(n) }
     var totalCount = 0
-    var counts = mutableListOf<Int>()
+    val counts = mutableListOf<Int>()
     val dx = intArrayOf(1, -1, 0, 0)
     val dy = intArrayOf(0, 0, 1, -1)
 
