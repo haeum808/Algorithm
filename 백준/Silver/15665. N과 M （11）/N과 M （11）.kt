@@ -6,15 +6,11 @@ import java.io.OutputStreamWriter
 fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val bw = BufferedWriter(OutputStreamWriter(System.out))
     val (n, m) = readLine().split(" ").map { it.toInt() }
-    val numbers = readLine().split(" ").map { it.toInt() }.sorted()
-    val beforeAnswer = mutableSetOf<String>()
+    val numbers = readLine().split(" ").map { it.toInt() }.sorted().distinct()
 
     fun backtracking(depth: Int, answer: String) {
         if (depth == m) {
-            if (beforeAnswer.contains(answer).not()) {
-                bw.write("$answer\n")
-                beforeAnswer.add(answer)
-            }
+            bw.write("$answer\n")
             return
         }
 
