@@ -2,29 +2,29 @@ import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
-import java.math.BigInteger
 
 fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val bw = BufferedWriter(OutputStreamWriter(System.out))
     val t = readLine().toInt()
 
     repeat(t) {
-        val (n, m) = readLine().split(" ").map { it.toLong() }
-        var a = BigInteger.ONE
-        var b = BigInteger.ONE
+        val (n, m) = readLine().split(" ").map { it.toInt() }
 
-        (n downTo 2).forEach {
-            a *= BigInteger.valueOf(it)
-        }
-
-        (m downTo m - n + 1).forEach {
-            b *= BigInteger.valueOf(it)
-        }
-
-        bw.write("${b / a}\n")
+        bw.write("${combination(n, m)}\n")
     }
 
     bw.flush()
     bw.close()
     close()
+}
+
+fun combination(a: Int, b: Int): Int {
+    if (a == b || a == 0) return 1
+
+    var result = 1
+    for (i in 1..a) {
+        result *= b - a + i
+        result /= i
+    }
+    return result
 }
