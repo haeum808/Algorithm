@@ -7,16 +7,11 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val bw = BufferedWriter(OutputStreamWriter(System.out))
     val input = readLine()
     val set = HashSet<String>()
-    var index = 0
-    
-    repeat(input.length) {
-        for (i in input.indices) {
-            if (i + index + 1 <= input.length) {
-                set.add(input.substring(i, i + index + 1))
-            }
-        }
 
-        index++
+    for (i in 1..input.length) {
+        for (j in 0..input.length - i) {
+            set.add(input.substring(j, j + i))
+        }
     }
 
     bw.write("${set.size}")
