@@ -9,15 +9,15 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val distance = readLine().split(" ").map { it.toInt() }
     val prices = readLine().split(" ").map { it.toInt() }.toTypedArray()
     prices[n - 1] = Int.MAX_VALUE
-    var sum = 0
+    var sum = 0L
     var temp = 0
     var i = 0
 
     repeat(n - 1) {
         if (prices[temp] < prices[i + 1]) {
-            sum += prices[temp] * distance[i]
+            sum += prices[temp] * distance[i].toLong()
         } else {
-            sum += prices[temp] * distance[i]
+            sum += prices[temp] * distance[i].toLong()
             temp = i + 1
         }
 
