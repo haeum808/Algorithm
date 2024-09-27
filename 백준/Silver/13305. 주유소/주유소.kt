@@ -7,20 +7,20 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val bw = BufferedWriter(OutputStreamWriter(System.out))
     val n = readLine().toInt()
     val distance = readLine().split(" ").map { it.toInt() }
-    val prices = readLine().split(" ").map { it.toInt() }
-    var i = 1
-    var temp = 1
-    var sum = prices[0] * distance[0]
+    val prices = readLine().split(" ").map { it.toInt() }.toTypedArray()
+    prices[n - 1] = Int.MAX_VALUE
+    var sum = 0
+    var temp = 0
+    var i = 0
 
-    while (i < n - 1) {
-        if (prices[temp] <= prices[i + 1]) {
-            sum += prices[temp] * distance[i]
-        } else if (i == n - 2) {
+    repeat(n - 1) {
+        if (prices[temp] < prices[i + 1]) {
             sum += prices[temp] * distance[i]
         } else {
-            sum += prices[i] * distance[i]
-            temp++
+            sum += prices[temp] * distance[i]
+            temp = i + 1
         }
+
         i++
     }
 
