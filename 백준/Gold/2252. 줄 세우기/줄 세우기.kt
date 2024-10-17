@@ -1,7 +1,13 @@
+import java.io.BufferedReader
+import java.io.BufferedWriter
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
 import java.util.*
 
-fun main() {
-    val (n, m) = readLine()!!.split(" ").map { it.toInt() }
+fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
+    val bw = BufferedWriter(OutputStreamWriter(System.out))
+
+    val (n, m) = readLine().split(" ").map { it.toInt() }
 
     val edges = Array(n + 1) { ArrayList<Int>() }
     val isVisited = BooleanArray(n + 1)
@@ -21,7 +27,7 @@ fun main() {
     }
 
     repeat(m) {
-        val (x, y) = readLine()!!.split(" ").map { it.toInt() }
+        val (x, y) = readLine().split(" ").map { it.toInt() }
 
         edges[x].add(y)
     }
@@ -34,6 +40,10 @@ fun main() {
     }
 
     while(stack.isNotEmpty()) {
-        print("${stack.pop()} ")
+        bw.write("${stack.pop()} ")
     }
+
+    bw.flush()
+    bw.close()
+    close()
 }
