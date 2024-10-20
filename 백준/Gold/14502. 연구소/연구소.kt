@@ -9,58 +9,42 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val bw = BufferedWriter(OutputStreamWriter(System.out))
     val (n, m) = readLine().split(" ").map { it.toInt() }
     val graph = Array(n) { readLine().split(" ").map { it.toInt() }.toTypedArray() }
-    var result = 0
+    var maxSafeArea = 0
     val dx = intArrayOf(1, -1, 0, 0)
     val dy = intArrayOf(0, 0, 1, -1)
 
-    fun dfs() {
-        var count = 0
-        val originalZeroes = mutableListOf<Pair<Int, Int>>()
+    fun spreadVirus(): Int {
+        val tempGraph = graph.map { it.copyOf() }.toTypedArray()
+        val queue: Queue<Pair<Int, Int>> = LinkedList()
 
         for (i in 0..<n) {
             for (j in 0..<m) {
-                if (graph[i][j] == 2) {
-                    val queue: Queue<Pair<Int, Int>> = LinkedList()
+                if (tempGraph[i][j] == 2) {
                     queue.offer(i to j)
-
-                    while (queue.isNotEmpty()) {
-                        val next = queue.poll()
-
-                        for (k in 0..<4) {
-                            val nx = next.first + dx[k]
-                            val ny = next.second + dy[k]
-
-                            if (nx in 0..<n && ny in 0..<m && graph[nx][ny] == 0) {
-                                graph[nx][ny] = 2
-                                queue.offer(nx to ny)
-                                originalZeroes.add(nx to ny)
-                            }
-                        }
-                    }
                 }
             }
         }
 
-        for (i in 0..<n) {
-            for (j in 0..<m) {
-                if (graph[i][j] == 0) {
-                    count++
+        while (queue.isNotEmpty()) {
+            val (x, y) = queue.poll()
+
+            for (k in 0..<4) {
+                val nx = x + dx[k]
+                val ny = y + dy[k]
+
+                if (nx in 0..<n && ny in 0..<m && tempGraph[nx][ny] == 0) {
+                    tempGraph[nx][ny] = 2
+                    queue.offer(nx to ny)
                 }
             }
         }
 
-        result = maxOf(result, count)
-
-        originalZeroes.forEach {
-            graph[it.first][it.second] = 0
-        }
+        return tempGraph.sumOf { row -> row.count { it == 0 } }
     }
 
-    fun findThree(x: Int, y: Int, depth: Int) {
+    fun placeWalls(depth: Int) {
         if (depth == 3) {
-            graph[x][y] = 1
-            dfs()
-            graph[x][y] = 0
+            maxSafeArea = maxOf(maxSafeArea, spreadVirus())
             return
         }
 
@@ -68,24 +52,15 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
             for (j in 0..<m) {
                 if (graph[i][j] == 0) {
                     graph[i][j] = 1
-                    findThree(i, j, depth + 1)
+                    placeWalls(depth + 1)
                     graph[i][j] = 0
                 }
             }
         }
     }
 
-    for (i in 0..<n) {
-        for (j in 0..<m) {
-            if (graph[i][j] == 0) {
-                graph[i][j] = 1
-                findThree(i, j, 1)
-                graph[i][j] = 0
-            }
-        }
-    }
-    
-    bw.write("$result")
+    placeWalls(0)
+    bw.write("$maxSafeArea")
     bw.flush()
     bw.close()
     close()
