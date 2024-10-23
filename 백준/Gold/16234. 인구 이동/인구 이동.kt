@@ -21,14 +21,14 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val visited = mutableMapOf<Point, Boolean>()
     var isChanged = false
 
-    fun bfs(x: Int, y: Int) {
-        var sum = graph[x][y]
-        val queue: Queue<Pair<Int, Int>> = LinkedList()
-        val results = mutableListOf<Pair<Int, Int>>()
+    fun bfs(start: Point) {
+        var sum = graph[start.x][start.y]
+        val queue: Queue<Point> = LinkedList()
+        val points = mutableListOf<Point>()
 
-        queue.offer(x to y)
-        visited[Point(x, y)] = true
-        results.add(x to y)
+        queue.offer(start)
+        visited[start] = true
+        points.add(start)
 
         while (queue.isNotEmpty()) {
             val (cx, cy) = queue.poll()
@@ -37,25 +37,26 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
                 val nx = cx + dx[i]
                 val ny = cy + dy[i]
 
-                if (nx in 0..<n && ny in 0..<n && visited[Point(
-                        nx,
-                        ny
-                    )] == null && abs(graph[cx][cy] - graph[nx][ny]) in l..r
+                if (nx in 0..<n &&
+                    ny in 0..<n &&
+                    visited[Point(nx, ny)] == null &&
+                    abs(graph[cx][cy] - graph[nx][ny]) in l..r
                 ) {
+                    val point = Point(nx, ny)
                     isChanged = true
-                    visited[Point(nx, ny)] = true
+                    visited[point] = true
                     sum += graph[nx][ny]
-                    queue.offer(nx to ny)
-                    results.add(nx to ny)
+                    queue.offer(point)
+                    points.add(point)
                 }
             }
         }
 
-        for (result in results) {
-            val cx = result.first
-            val cy = result.second
+        for (point in points) {
+            val cx = point.x
+            val cy = point.y
 
-            graph[cx][cy] = sum / results.size
+            graph[cx][cy] = sum / points.size
         }
     }
 
@@ -63,7 +64,7 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
         for (i in 0..<n) {
             for (j in 0..<n) {
                 if (visited[Point(i, j)] == null) {
-                    bfs(i, j)
+                    bfs(Point(i, j))
                 }
             }
         }
