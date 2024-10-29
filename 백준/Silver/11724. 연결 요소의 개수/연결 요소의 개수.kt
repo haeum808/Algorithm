@@ -13,8 +13,8 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     fun dfs(x: Int) {
         visited[x] = true
 
-        for (i in graph[x].indices) {
-            val next = graph[x][i]
+        while (graph[x].isNotEmpty()) {
+            val next = graph[x].removeFirst()
 
             if (visited[next].not()) {
                 dfs(next)
