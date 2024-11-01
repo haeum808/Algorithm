@@ -16,8 +16,7 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val queue = LinkedList<Point>()
     val dx = intArrayOf(1, -1, 0, 0, -1, 1, 1, -1)
     val dy = intArrayOf(0, 0, 1, -1, -1, 1, -1, 1)
-    var max = 0
-    var count = 1
+    var count = 0
 
     for (i in 0..<n) {
         for (j in 0..<m) {
@@ -25,8 +24,8 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
         }
     }
 
-    while (true) {
-        if (queue.isEmpty()) break
+    while (queue.isNotEmpty()) {
+        count++
 
         repeat(queue.size) {
             val (cx,cy) = queue.poll()
@@ -37,16 +36,13 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
 
                 if (nx in 0..<n && ny in 0..<m && map[nx][ny] == 0) {
                     map[nx][ny] = count
-                    max = maxOf(map[nx][ny], max)
                     queue.offer(Point(nx, ny))
                 }
             }
         }
-
-        count++
     }
 
-    bw.write("$max")
+    bw.write("${count - 1}")
     bw.flush()
     bw.close()
     close()
