@@ -15,18 +15,36 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val dx = intArrayOf(1, -1, 0, 0)
     val dy = intArrayOf(0, 0, 1, -1)
     val n = readLine().toInt()
-    val graph = Array(n) { readLine().map { it }.toTypedArray() }
-    val graph1 = graph.clone()
-    val graph2 = graph.clone()
-    val visited1 = Array(n) { BooleanArray(n) }
-    val visited2 = Array(n) { BooleanArray(n) }
+    val graph1 = Array(n) { CharArray(n) }
+    val graph2 = Array(n) { CharArray(n) }
     var count1 = 0
     var count2 = 0
 
-    fun bfs(x: Int, y: Int, visited: Array<BooleanArray>, graph: Array<Array<Char>>, vararg condition: Char) {
+    for (i in 0..<n) {
+        val input = readLine()
+
+        for (j in 0..<n) {
+            when(input[j]) {
+                'R' -> {
+                    graph1[i][j] = 'R'
+                    graph2[i][j] = 'R'
+                }
+                'G' -> {
+                    graph1[i][j] = 'G'
+                    graph2[i][j] = 'R'
+                }
+                'B' -> {
+                    graph1[i][j] = 'B'
+                    graph2[i][j] = 'B'
+                }
+            }
+        }
+    }
+
+    fun bfs(x: Int, y: Int, graph: Array<CharArray>, vararg condition: Char) {
         val queue: Queue<Point> = LinkedList()
         queue.offer(Point(x, y))
-        visited[x][y] = true
+        graph[x][y] = 'X'
 
         while (queue.isNotEmpty()) {
             val (cx, cy) = queue.poll()
@@ -35,8 +53,8 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
                 val nx = cx + dx[i]
                 val ny = cy + dy[i]
 
-                if (nx in 0..<n && ny in 0..<n && visited[nx][ny].not() && condition.contains(graph[nx][ny])) {
-                    visited[nx][ny] = true
+                if (nx in 0..<n && ny in 0..<n && condition.contains(graph[nx][ny])) {
+                    graph[nx][ny] = 'X'
                     queue.offer(Point(nx, ny))
                 }
             }
@@ -45,25 +63,21 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
 
     for (i in 0..<n) {
         for (j in 0..<n) {
-            if (visited1[i][j].not()) {
+            if (graph1[i][j] != 'X') {
                 count1++
                 when (graph1[i][j]) {
-                    'R' -> bfs(i, j, visited1, graph1, 'R')
-                    'G' -> bfs(i, j, visited1, graph1, 'G')
-                    'B' -> bfs(i, j, visited1, graph1, 'B')
+                    'R' -> bfs(i, j, graph1, 'R')
+                    'G' -> bfs(i, j, graph1, 'G')
+                    'B' -> bfs(i, j, graph1, 'B')
                     else -> throw IllegalArgumentException()
                 }
             }
-        }
-    }
 
-    for (i in 0..<n) {
-        for (j in 0..<n) {
-            if (visited2[i][j].not()) {
+            if (graph2[i][j] != 'X') {
                 count2++
                 when (graph2[i][j]) {
-                    'R', 'G' -> bfs(i, j, visited2, graph2, 'R', 'G')
-                    'B' -> bfs(i, j, visited2, graph2, 'B')
+                    'R' -> bfs(i, j, graph2, 'R')
+                    'B' -> bfs(i, j, graph2, 'B')
                     else -> throw IllegalArgumentException()
                 }
             }
