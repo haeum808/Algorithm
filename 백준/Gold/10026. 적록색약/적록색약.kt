@@ -41,7 +41,7 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
         }
     }
 
-    fun bfs(x: Int, y: Int, graph: Array<CharArray>, vararg condition: Char) {
+    fun bfs(x: Int, y: Int, graph: Array<CharArray>, condition: Char) {
         val queue: Queue<Point> = LinkedList()
         queue.offer(Point(x, y))
         graph[x][y] = 'X'
@@ -53,7 +53,7 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
                 val nx = cx + dx[i]
                 val ny = cy + dy[i]
 
-                if (nx in 0..<n && ny in 0..<n && condition.contains(graph[nx][ny])) {
+                if (nx in 0..<n && ny in 0..<n && graph[nx][ny] == condition) {
                     graph[nx][ny] = 'X'
                     queue.offer(Point(nx, ny))
                 }
