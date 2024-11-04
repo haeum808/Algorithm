@@ -7,7 +7,10 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val bw = BufferedWriter(OutputStreamWriter(System.out))
     val input = readLine()
 
-    bw.write(input.map { if (it.isLowerCase()) it.uppercase() else it.lowercase() }.joinToString(""))
+    for (i in input.indices) {
+        if (input[i].isLowerCase()) bw.write(input[i].uppercase())
+        else bw.write(input[i].lowercase())
+    }
     bw.flush()
     bw.close()
     close()
