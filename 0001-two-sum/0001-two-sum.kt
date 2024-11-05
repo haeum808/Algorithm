@@ -1,19 +1,16 @@
 class Solution {
     fun twoSum(nums: IntArray, target: Int): IntArray {
-        var result = intArrayOf(-1, -1)
+        val map = hashMapOf<Int, Int>()
 
-        for (i in 0..<nums.size) {
-            for (j in i + 1..<nums.size) {
-                if (nums[i] + nums[j] == target) {
-                    result[0] = i
-                    result[1] = j
-                    break
-                }
+        for (i in nums.indices) {
+            val diff = target - nums[i]
+
+            if (map[diff] != null) {
+                return intArrayOf(map[diff]!!, i)
             }
-
-            if (result[0] != -1) break
+            map[nums[i]] = i
         }
 
-        return result
+        return intArrayOf(-1, -1)
     }
 }
