@@ -1,6 +1,6 @@
 class Solution {
     fun twoSum(nums: IntArray, target: Int): IntArray {
-        val map = mutableMapOf<Int, Int>()
+        val map = hashMapOf<Int, Int>()
 
         for (i in nums.indices) {
             val diff = target - nums[i]
