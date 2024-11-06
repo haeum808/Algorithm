@@ -1,21 +1,23 @@
+
 class Solution {
     fun plusOne(digits: IntArray): IntArray {
-        var isCarry = true
+        var carry = true
         var index = digits.size - 1
 
-        while (isCarry && index >= 0) {
-            digits[index] = (digits[index] + 1) % 10
-            isCarry = digits[index] == 0
+        while(carry && index >= 0) {
+            val plusOne = digits[index] + 1
+            digits[index] = if (plusOne > 9) plusOne % 10 else plusOne
+            carry = plusOne > 9
             index--
         }
-        
-        return if (isCarry) {
-            IntArray(digits.size + 1).apply {
-                this[0] = 1
-                digits.copyInto(this, 1)
-            }
-        } else {
-            digits
+
+        if (carry) {
+            val result = IntArray(digits.size + 1)
+            result[0] = 1
+            System.arraycopy(digits, 0, result, 1, digits.size)
+            return result
         }
+
+        return digits
     }
 }
