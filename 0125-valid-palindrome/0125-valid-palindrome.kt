@@ -7,7 +7,7 @@ class Solution {
             while (start < end && s[start].isLetterOrDigit().not()) start++
             while (start < end && s[end].isLetterOrDigit().not()) end--
 
-            if (s[start].lowercaseChar() != s[end].lowercaseChar()) {
+            if (s[start].lowercase() != s[end].lowercase()) {
                 return false
             }
 
