@@ -5,25 +5,27 @@ import java.io.OutputStreamWriter
 
 fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val bw = BufferedWriter(OutputStreamWriter(System.out))
-    val (n, m) = readLine().split(" ").map { it.toLong() }
-    val heights = readLine().split(" ").map { it.toLong() }
+    val (n, m) = readLine().split(" ").map { it.toInt() }
+    val heights = readLine().split(" ").map { it.toInt() }
 
-    var left = -1L
-    var right = 2_000_000_001L
-    var max = 0L
+    var start = 0L
+    var end = heights.max().toLong()
+    var result = 0L
 
-    while (left <= right) {
-        val mid = (left + right) / 2
+    while (start <= end) {
+        val mid = (start + end) / 2
 
-        if (heights.sumOf { if (it - mid >= 0) it - mid else 0 } >= m) {
-            left = mid + 1
-            max = maxOf(max, mid)
+        val sum = heights.sumOf { if(it - mid <= 0) 0 else it - mid }
+
+        if (sum >= m) {
+            result = mid
+            start = mid + 1
         } else {
-            right = mid - 1
+            end = mid - 1
         }
     }
 
-    bw.write("$max")
+    bw.write("$result")
     bw.flush()
     bw.close()
     close()
