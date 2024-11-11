@@ -1,24 +1,17 @@
 class Solution {
     fun longestCommonPrefix(strs: Array<String>): String {
-        val minLengthOfStrs = strs.minOf { it.length }
-        var result = ""
-        var flag = false
+        if (strs.size == 1) return strs[0]
 
-        for (i in 0..<minLengthOfStrs) {
-            val set = mutableSetOf<Char>()
-            for (j in 0..<strs.size) {
-                set.add(strs[j][i])
-            }
-            
-            if (set.size == 1) {
-                result += set.first()
-                set.clear()
-            } else {
-                flag = true
-                break
+        val target = strs[0]
+
+        for (i in 0..<target.length) {
+            for (k in 1..<strs.size) {
+                if (strs[k].length <= i || target[i] != strs[k][i]) {
+                    return target.substring(0, i)
+                }
             }
         }
 
-        return result
+        return target
     }
 }
