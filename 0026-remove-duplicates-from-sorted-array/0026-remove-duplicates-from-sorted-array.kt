@@ -1,11 +1,13 @@
 class Solution {
     fun removeDuplicates(nums: IntArray): Int {
-        val set = nums.toSet().toList()
+        var count = 0
 
-        for(i in set.indices) {
-            nums[i] = set[i]
+        for (i in 1..<nums.size) {
+            if (nums[count] != nums[i]) {
+                nums[++count] = nums[i]
+            }
         }
 
-        return set.size
+        return count + 1
     }
 }
