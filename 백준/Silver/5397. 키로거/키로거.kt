@@ -11,14 +11,14 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     repeat(t) {
         val result = LinkedList<Char>()
         val input = readLine()
-        var now = 0
+        var index = 0
 
         for (char in input) {
             when (char) {
-                '<' -> if (now != 0) now--
-                '>' -> if (now != result.size) now++
-                '-' -> if (now != 0 && result.isNotEmpty()) result.removeAt(--now)
-                else -> result.add(now++, char)
+                '<' -> if (index != 0) index--
+                '>' -> if (index != result.size) index++
+                '-' -> if (index != 0 && result.isNotEmpty()) result.removeAt(--index)
+                else -> result.add(index++, char)
             }
         }
 
