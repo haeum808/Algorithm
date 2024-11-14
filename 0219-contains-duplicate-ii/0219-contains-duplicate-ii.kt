@@ -6,7 +6,7 @@ class Solution {
             if (map[nums[i]] == null) {
                 map[nums[i]] = i
             } else {
-                if (abs(map[nums[i]]!! - i) <= k) {
+                if (i - map[nums[i]]!! <= k) {
                     return true
                 }
                 map[nums[i]] = i
