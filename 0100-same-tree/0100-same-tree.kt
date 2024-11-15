@@ -9,29 +9,10 @@
  * }
  */
 class Solution {
-    var plist = mutableListOf<Pair<Int, Int>>()
-    var qlist = mutableListOf<Pair<Int, Int>>()
-
     fun isSameTree(p: TreeNode?, q: TreeNode?): Boolean {
-        inorder(p, plist, 0)
-        inorder(q, qlist, 0)
+    if(p?.`val` != q?.`val`) return false
+    if(p == null && q == null) return true
 
-        if (plist.size != qlist.size) return false
-
-        for (i in 0..<plist.size) {
-            if (plist[i].first != qlist[i].first ||
-            plist[i].second != qlist[i].second
-            ) return false
-        }
-
-        return true
-    }
-    
-    fun inorder(root: TreeNode?, result: MutableList<Pair<Int, Int>>, count: Int) {
-        if (root == null) return
-
-        inorder(root.left, result, count + 1)
-        result.add(root.`val` to count)
-        inorder(root.right, result, count + 1)
+    return isSameTree(p?.left, q?.left) && isSameTree(p?.right, q?.right)
     }
 }
