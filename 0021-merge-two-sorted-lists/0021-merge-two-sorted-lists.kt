@@ -9,48 +9,30 @@
  */
 class Solution {
     fun mergeTwoLists(list1: ListNode?, list2: ListNode?): ListNode? {
-        if (list1 == null) return list2
-        else if (list2 == null) return list1
-        else if (list1 == null && list2 == null) return list1
+        var listOne = list1
+        var listTwo = list2
+        var dummy = ListNode(0)
+        val result = dummy
 
-        var curList1 = list1
-        var curList2 = list2
-        var newListNode: ListNode? = null
-
-        if (curList1.`val` < curList2.`val`) {
-            newListNode = ListNode(curList1.`val`)
-            curList1 = curList1.next
-        } else {
-            newListNode = ListNode(curList2.`val`)
-            curList2 = curList2.next
-        }
-
-        val root = newListNode
-
-        while(curList1 != null && curList2 != null) {
-            if (curList1.`val` < curList2.`val`) {
-                newListNode?.next = ListNode(curList1.`val`)
-                newListNode = newListNode?.next
-                curList1 = curList1?.next
+        while (listOne != null && listTwo != null) {
+            if (listOne.`val` < listTwo.`val`) {
+                dummy.next = listOne
+                listOne = listOne.next
             } else {
-                newListNode?.next = ListNode(curList2.`val`)
-                newListNode = newListNode?.next
-                curList2 = curList2?.next
-            }   
+                dummy.next = listTwo
+                listTwo = listTwo.next
+            }
+            dummy = dummy.next
         }
 
-        while(curList1 != null) {
-            newListNode?.next = ListNode(curList1.`val`)
-            newListNode = newListNode?.next
-            curList1 = curList1?.next
+        if (listOne != null) {
+            dummy.next = listOne
         }
 
-        while(curList2 != null) {
-            newListNode?.next = ListNode(curList2.`val`)
-            newListNode = newListNode?.next
-            curList2 = curList2?.next
+        if (listTwo != null) {
+            dummy.next = listTwo
         }
 
-        return root
+        return result.next
     }
 }
