@@ -9,11 +9,9 @@ class Solution {
         }
 
         for (char in t) {
-            if (map[char] == null) return false
+            if (map[char] == null || map[char]!! <= 0) return false
 
             map[char] = map[char]!! - 1
-
-            if (map[char]!! < 0) return false
         }
 
         return true
