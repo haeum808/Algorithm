@@ -1,15 +1,18 @@
 class Solution {
     fun canConstruct(ransomNote: String, magazine: String): Boolean {
-        val map = HashMap<Char, Int>()
+        val alphabetCount1 = IntArray(26)
+        val alphabetCount2 = IntArray(26)
 
         for (char in magazine) {
-            map[char] = map.getOrDefault(char, 0) + 1
+            alphabetCount1[char - 'a']++
         }
 
         for (char in ransomNote) {
-            if (map[char] == null || map[char]!! <= 0) return false
+            alphabetCount2[char - 'a']++
+        }
 
-            map[char] = map.getOrDefault(char, 0) - 1
+        for (char in ransomNote) {
+            if (alphabetCount1[char - 'a'] < alphabetCount2[char - 'a']) return false
         }
 
         return true
