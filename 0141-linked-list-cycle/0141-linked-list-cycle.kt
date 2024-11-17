@@ -10,6 +10,8 @@
 
 class Solution {
     fun hasCycle(head: ListNode?): Boolean {
+        if (head == null) return false
+
         var turtle = head
         var rabbit = head
 
