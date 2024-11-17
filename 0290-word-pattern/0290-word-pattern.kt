@@ -8,8 +8,6 @@ class Solution {
         val visited = hashSetOf<String>()
 
         for (index in pattern.indices) {
-            println(map)
-
             if (map[pattern[index]] != null) {
                 if (map[pattern[index]] != strings[index]) return false
             } else {
