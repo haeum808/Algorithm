@@ -11,8 +11,8 @@ class Solution {
 
             if (counterS[currentS.code] != counterT[currentT.code]) return false
 
-            counterS[currentS.code] = index
-            counterT[currentT.code] = index
+            counterS[currentS.code] = index + 1
+            counterT[currentT.code] = index + 1
         }
         
         return true
