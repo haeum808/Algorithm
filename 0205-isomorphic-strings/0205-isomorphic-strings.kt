@@ -1,21 +1,20 @@
 class Solution {
     fun isIsomorphic(s: String, t: String): Boolean {
         if (s.length != t.length) return false
-        val map = HashMap<Char, Char>()
-        val visited = hashSetOf<Char>()
-        
-        for (index in s.indices) {
-            var char1 = s[index]
-            var char2 = t[index]
 
-            if (map.containsKey(char1)) {
-                if (map[char1] != char2) return false
-            } else {
-                if (visited.contains(char2)) return false
-                map[char1] = char2
-                visited.add(char2)
-            }
+        val counterS = IntArray(128)
+        val counterT = IntArray(128)
+
+        for (index in 0 until s.length) {
+            val currentS = s[index]
+            val currentT = t[index]
+
+            if (counterS[currentS.code] != counterT[currentT.code]) return false
+
+            counterS[currentS.code] = index + 1
+            counterT[currentT.code] = index + 1
         }
+        
         return true
     }
 }
