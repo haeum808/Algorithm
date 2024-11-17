@@ -9,16 +9,14 @@
  */
 
 class Solution {
-    val set = hashSetOf<ListNode?>()
-
     fun hasCycle(head: ListNode?): Boolean {
-        var currentHead = head
+        var turtle = head
+        var rabbit = head
 
-        while (currentHead?.next != null) {
-            if (set.contains(currentHead)) return true
-            set.add(currentHead)
-
-            currentHead = currentHead.next
+        while (rabbit != null && rabbit.next != null) {
+            turtle = turtle?.next
+            rabbit = rabbit?.next?.next
+            if (turtle == rabbit) return true
         }
 
         return false
