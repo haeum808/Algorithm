@@ -1,22 +1,11 @@
 class Solution {
     fun singleNumber(nums: IntArray): Int {
-        val map = HashMap<Int, Int>()
+        var result = 0
 
         for (num in nums) {
-            map[num] = map.getOrDefault(num, 0) + 1
+            result = num xor result
         }
-
-        for (v in map) {
-            if (v.value == 1) return v.key
-        }
-
-        return -1
+        
+        return result
     }
 }
-
-/* 
-Time Complexity O(N)
-Space Complexity O(1)
-
-
- */
