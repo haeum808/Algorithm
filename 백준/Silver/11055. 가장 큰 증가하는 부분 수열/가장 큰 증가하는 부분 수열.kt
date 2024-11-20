@@ -7,11 +7,10 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val bw = BufferedWriter(OutputStreamWriter(System.out))
     val n = readLine().toInt()
     val numbers = readLine().split(" ").map { it.toInt() }
-    val dp = IntArray(n)
+    val dp = IntArray(n) { numbers[it] }
     var result = numbers.max()
 
     for (i in 0..<n) {
-        dp[i] = numbers[i]
         for (j in 0..<i) {
             if (numbers[i] > numbers[j]) {
                 dp[i] = maxOf(dp[i], dp[j] + numbers[i])
