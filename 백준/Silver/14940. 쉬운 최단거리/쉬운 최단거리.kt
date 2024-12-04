@@ -14,21 +14,24 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val dy = intArrayOf(0, 0, 1, -1)
     val queue: Queue<Pair<Int, Int>> = LinkedList()
 
-    fun bfs(i: Int, j: Int) {
-        queue.offer(i to j)
+    fun isValid(x: Int, y: Int): Boolean {
+        return x in 0..<n && y in 0 until m
+    }
+
+    fun bfs(startX: Int, startY: Int) {
+        queue.offer(startX to startY)
+        map[startX][startY] = 2
 
         while (queue.isNotEmpty()) {
             val (cx, cy) = queue.poll()
 
-            for (position in 0..<4) {
-                val nx = cx + dx[position]
-                val ny = cy + dy[position]
+            for (dir in 0..<4) {
+                val nx = cx + dx[dir]
+                val ny = cy + dy[dir]
 
-                if (nx in 0..<n && ny in 0..<m) {
-                    if (map[nx][ny] == 1) {
-                        queue.offer(nx to ny)
-                        map[nx][ny] = map[cx][cy] + 1
-                    }
+                if (isValid(nx, ny) && map[nx][ny] == 1) {
+                    queue.offer(nx to ny)
+                    map[nx][ny] = map[cx][cy] + 1
                 }
             }
         }
@@ -39,17 +42,10 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
             if (map[i][j] == 2) {
                 bfs(i, j)
 
-                for (k in 0..<n) {
-                    for (l in 0..<m) {
-                        if (map[k][l] != 0) {
-                            bw.write("${map[k][l] - 2} ")
-                        } else {
-                            bw.write("0 ")
-                        }
-                    }
-                    bw.write("\n")
+                for (row in map) {
+                    row.forEach { bw.write("${if (it == 0) 0 else it - 2} ") }
+                    bw.newLine()
                 }
-
                 bw.flush()
                 bw.close()
                 close()
